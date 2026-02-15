@@ -38,13 +38,14 @@ This project is a **floating chatbot component** built in **React**. It allows u
 
 chatbot-frontend/
 ├─ src/
-│ ├─ Chatbot.jsx # Main chatbot component
-│ ├─ Chatbot.css # Styling for chatbot
-│ └─ App.jsx # Main React app file
+│   ├─ Chatbot.jsx      # Main chatbot component
+│   ├─ Chatbot.css      # Styling for chatbot
+│   └─ App.jsx          # Main React app file
 ├─ public/
-│ └─ index.html
+│   └─ index.html
 ├─ package.json
 └─ README.md
+
 
 
 ---
