@@ -10,7 +10,10 @@ function Chatbot({ title = "Website Assistant" }) {
     {
       text: "Hello 👋 How can I help you today?",
       sender: "bot",
-      time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      time: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
     },
   ]);
 
@@ -20,25 +23,26 @@ function Chatbot({ title = "Website Assistant" }) {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, typing]);
 
-  // Convert bot message text into HTML with headings, bold, lists, tables
+  // Convert bot message text into formatted HTML
   const parseBotMessage = (text) => {
     let html = text;
 
-    // --- Lines starting with '**Heading**' become subheadings ---
-    html = html.replace(/^\*\*(.+?)\*\*$/gm, "<h3 class='bot-heading'>$1</h3>");
+    html = html.replace(
+      /^\*\*(.+?)\*\*$/gm,
+      "<h3 class='bot-heading'>$1</h3>"
+    );
 
-    // --- Inline bold anywhere in text ---
     html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 
-    // --- Bullets ---
     html = html.replace(/^\s*[-*+] (.*$)/gim, "<li>$1</li>");
 
-    // Wrap consecutive <li> in <ul>
     if (html.includes("<li>")) {
-      html = "<ul class='bot-list'>" + html.replace(/<\/li>\s*<li>/g, "</li><li>") + "</ul>";
+      html =
+        "<ul class='bot-list'>" +
+        html.replace(/<\/li>\s*<li>/g, "</li><li>") +
+        "</ul>";
     }
 
-    // --- Tables ---
     if (html.includes("|")) {
       const lines = html.split("\n");
       let tableHTML = "<table class='bot-table'>";
@@ -55,13 +59,11 @@ function Chatbot({ title = "Website Assistant" }) {
       html = tableHTML;
     }
 
-    // --- Preserve line breaks ---
     html = html.replace(/\n/g, "<br/>");
 
     return html;
   };
 
-  // Send message to backend
   const sendMessage = async (text) => {
     const finalMessage = text || message;
     if (finalMessage.trim() === "") return;
@@ -69,8 +71,12 @@ function Chatbot({ title = "Website Assistant" }) {
     const userMsg = {
       text: finalMessage,
       sender: "user",
-      time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      time: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
     };
+
     setMessages((prev) => [...prev, userMsg]);
     setMessage("");
     setTyping(true);
@@ -85,9 +91,14 @@ function Chatbot({ title = "Website Assistant" }) {
       const data = await response.json();
 
       const botReply = {
-        text: parseBotMessage(data.response || "No response from server"),
+        text: parseBotMessage(
+          data.response || "No response from server"
+        ),
         sender: "bot",
-        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
       };
 
       setMessages((prev) => [...prev, botReply]);
@@ -95,8 +106,12 @@ function Chatbot({ title = "Website Assistant" }) {
       const errorReply = {
         text: "⚠ Server error. Please try again later.",
         sender: "bot",
-        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        time: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
       };
+
       setMessages((prev) => [...prev, errorReply]);
     }
 
@@ -105,36 +120,63 @@ function Chatbot({ title = "Website Assistant" }) {
 
   return (
     <div className="chatbot-container">
-      {/* Toggle Button */}
-      <button className="chatbot-toggle" onClick={() => setOpen(!open)}>💬</button>
 
-      {/* Chat Window */}
+      {/* SHOW TOGGLE ONLY WHEN CLOSED */}
+      {!open && (
+        <button
+          className="chatbot-toggle"
+          onClick={() => setOpen(true)}
+        >
+          💬
+        </button>
+      )}
+
+      {/* SHOW CHAT WINDOW ONLY WHEN OPEN */}
       {open && (
         <div className="chatbot-box">
+
           {/* Header */}
           <div className="chatbot-header">
             {title}
-            <span className="close-btn" onClick={() => setOpen(false)}>✖</span>
+            <span
+              className="close-btn"
+              onClick={() => setOpen(false)}
+              style={{ cursor: "pointer" }}
+            >
+              ✖
+            </span>
           </div>
 
           {/* Messages */}
           <div className="chatbot-body">
-            {/* Quick Buttons */}
+
             <div className="quick-buttons">
-              <button onClick={() => sendMessage("Admission Info")}>Admission Info</button>
-              <button onClick={() => sendMessage("Courses Details")}>Courses</button>
-              <button onClick={() => sendMessage("Contact Support")}>Contact</button>
+              <button onClick={() => sendMessage("Admission Info")}>
+                Admission Info
+              </button>
+              <button onClick={() => sendMessage("Courses Details")}>
+                Courses
+              </button>
+              <button onClick={() => sendMessage("Contact Support")}>
+                Contact
+              </button>
             </div>
 
             {messages.map((msg, index) => (
               <div key={index} className={`message-row ${msg.sender}`}>
-                {msg.sender === "bot" && <div className="avatar">🤖</div>}
+                {msg.sender === "bot" && (
+                  <div className="avatar">🤖</div>
+                )}
+
                 <div className="message-bubble">
                   {msg.sender === "bot" ? (
-                    <div dangerouslySetInnerHTML={{ __html: msg.text }} />
+                    <div
+                      dangerouslySetInnerHTML={{ __html: msg.text }}
+                    />
                   ) : (
                     <p>{msg.text}</p>
                   )}
+
                   <span className="time">{msg.time}</span>
                 </div>
               </div>
@@ -157,10 +199,15 @@ function Chatbot({ title = "Website Assistant" }) {
               placeholder="Type your message..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+              onKeyDown={(e) =>
+                e.key === "Enter" && sendMessage()
+              }
             />
-            <button onClick={() => sendMessage()}>➤</button>
+            <button onClick={() => sendMessage()}>
+              ➤
+            </button>
           </div>
+
         </div>
       )}
     </div>
