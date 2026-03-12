@@ -187,9 +187,4 @@ http://127.0.0.1:8000/docs
 ---
 
 
-## 👩‍💻 Author
 
-**Asma Shahzadi**
-
-GitHub:
-https://github.com/asmashahzadi764-alt
