@@ -1,6 +1,6 @@
 # 🤖 IBA Sukkur AI Chatbot
 
-An **AI-powered chatbot** designed to assist users with queries related to **IBA Sukkur**.
+An **AI-powered chatbot** designed to assist users with queries related to **IBA Sukkur**.  
 This project includes a **React frontend chatbot interface** and a **FastAPI backend API** that processes user queries and returns AI-generated responses.
 
 ---
@@ -23,28 +23,26 @@ A **Python-based API** that processes user messages and returns AI-generated res
 
 ### 🎨 Frontend Features
 
-* **Floating chatbot widget**
-* **Quick reply buttons**
-* **Typing indicator**
-* **Responsive user interface**
-* **Clean and modern design**
-* **Formatted chatbot responses**
+- Floating chatbot widget  
+- Quick reply buttons  
+- Typing indicator  
+- Responsive user interface  
+- Clean and modern design  
+- Formatted chatbot responses  
 
-### 🔧 Backend Features
+### ⚙️ Backend Features
 
-* **FastAPI REST API**
-* **Retrieval-Augmented Generation (RAG)**
-* **FAISS vector database for document retrieval**
-* **Structured API endpoints**
-* **Automatic API documentation with Swagger UI**
+- FastAPI REST API  
+- Retrieval-Augmented Generation (RAG)  
+- FAISS vector database for document retrieval  
+- Structured API endpoints  
+- Automatic API documentation with Swagger UI  
 
 ---
 
 ## 📂 Project Structure
-
-### 📁 Frontend
-
-```
+## Frontend
+```bash
 react-chatbot-frontend
 │
 ├── public
@@ -61,9 +59,8 @@ react-chatbot-frontend
 
 ---
 
-### 📁 Backend
-
-```
+## Backend
+```bash
 IBA_Sukkur_Chatbot_Backend
 │
 ├── api
@@ -75,6 +72,7 @@ IBA_Sukkur_Chatbot_Backend
 ├── .env
 └── README.md
 ```
+
 
 ---
 
