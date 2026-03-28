@@ -49,12 +49,10 @@ react-chatbot-frontend
 │
 ├── public
 │   └── index.html
-│
 ├── src
 │   ├── Chatbot.jsx        # Main chatbot component
 │   ├── Chatbot.css        # Styling for chatbot
 │   └── App.jsx            # Main React application
-│
 ├── package.json
 ├── package-lock.json
 ├── vite.config.js
